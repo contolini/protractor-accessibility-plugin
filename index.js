@@ -54,7 +54,7 @@ var TENON_URL = 'http://www.tenon.io/api/';
  * @return {q.Promise} A promise which resolves when all audits are finished
  * @public
  */
-function teardown() {
+function onPageLoad() {
 
   var audits = [];
 
@@ -273,7 +273,7 @@ function runAxe(context) {
       var msg = result.nodes.reduce(function(msg, node) {
         return msg + '\t\t' + node.html + '\n';
       }, '\n');
-      msg = '\n\t\t' + result.nodes.length + label + 'failed:' + msg + '\n\n\t\t' + result.helpUrl
+      msg = '\n\t\t' + result.nodes.length + label + 'failed at ' + results.url + ':' + msg + '\n\n\t\t' + result.helpUrl;
       context.addFailure(msg, {specName: testHeader + result.help});
     });
 
@@ -282,4 +282,4 @@ function runAxe(context) {
 }
 
 // Export
-exports.teardown = teardown;
+exports.onPageLoad = onPageLoad;
