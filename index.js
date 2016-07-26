@@ -45,6 +45,7 @@ var q = require('q'),
 
 var AUDIT_FILE = require.resolve('accessibility-developer-tools/dist/js/axs_testing.js');
 var TENON_URL = 'http://www.tenon.io/api/';
+var pageIsStable = false;
 
 /**
  * Checks the information returned by the accessibility audit(s) and
@@ -54,7 +55,13 @@ var TENON_URL = 'http://www.tenon.io/api/';
  * @return {q.Promise} A promise which resolves when all audits are finished
  * @public
  */
-function onPageLoad() {
+function runAudits() {
+
+  // To prevent Angular projects from running the audit twice, we skip the first
+  // onPageLoad event and wait for the onPageStable audit.
+  if (!browser.ignoreSynchronization && !pageIsStable) {
+    return pageIsStable = true;
+  }
 
   var audits = [];
 
@@ -282,4 +289,4 @@ function runAxe(context) {
 }
 
 // Export
-exports.onPageLoad = onPageLoad;
+exports.onPageLoad = exports.onPageStable = runAudits;

@@ -21,13 +21,13 @@ executor.addCommandlineTest(
     'node node_modules/protractor/lib/cli.js spec/failureConfig.js')
     .expectExitCode(1)
     .expectErrors([{
-      message: '3 elements failed:'
+      message: '3 elements failed at'
     },
     {
-      message: '1 element failed:'
+      message: '1 element failed at'
     },
     {
-      message: '1 element failed:'
+      message: '1 element failed at'
     },
     {
       message: '3 elements failed:'
